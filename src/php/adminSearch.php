@@ -1,0 +1,88 @@
+<html>
+<head>
+  </head>
+<body align="center">
+    <h1>किताब ढूंढें </h1>
+    <form action='' method='post' >
+    
+        <input type="text" name="searchBook" placeholder="Book Name" required > <br/>
+        <input type="radio" name="searchRadio" value="bookName" id="Bookname">किताब का नाम 
+		<input type="radio" name="searchRadio" value="Author" >लेखक / लेखिका 
+		<input type="radio" name="searchRadio" value="BookCategory">किताब श्रेणी 
+		<input type="radio" name="searchRadio" value="BookNumber">किताब संख्या 
+        <input type="submit" >
+        
+    </form>
+<!--	<p><a href="viewRequests.php">View Requests</a></p>  -->
+	
+	
+	<div>
+	
+	<?php
+
+include('config.php');
+
+if(isset($_POST['searchBook']) && !empty($_POST['searchBook'])){
+	$search_query = $_POST['searchBook'];
+	if($_POST['searchRadio'] == "bookName"){
+	$query = mysqli_query($dbConn,"select * from bookdata where UPPER(bName) LIKE UPPER('%$search_query%')") or die(mysqli_error($dbConn));
+	}
+    else if($_POST['searchRadio'] == "Author"){
+	$query = mysqli_query($dbConn,"select * from bookdata where UPPER(bAuthor) LIKE UPPER('%$search_query%')") or die(mysqli_error($dbConn));
+	}else if($_POST['searchRadio'] == "BookCategory"){
+		$query = mysqli_query($dbConn,"select * from bookdata where UPPER(bCategory) LIKE UPPER('%$search_query%')") or die(mysqli_error($dbConn));
+	}	
+	else {
+			$query = mysqli_query($dbConn,"select * from bookdata where bNo = '$search_query'") or die(mysqli_error($dbConn));
+	}
+
+
+
+
+echo "<table border='1' cellpadding='10'>";
+echo "<tr>
+<th><font color='#3984DB'>किताब क्रम संख्या </font></th>
+<th><font color='#3984DB'>नाम </font></th>
+<th><font color='#3984DB'>लेखक / लेखिका  </font></th>
+<th><font color='#3984DB'>श्रेणी </font></th>
+<th><font color='#3984DB'>शेल्फ संख्या </font></th>
+<th><font color='#3984DB'>मौजूदगी </font></th>
+<th><font color='#3984DB'>बदलाव करें </font></th>
+<th><font color='#3984DB'>हटाएँ </font></th>
+<th><font color='#3984DB'>टोटल मात्रा</font></th>
+<th><font color='#3984DB'>मौजूदा मात्रा  </font></th>
+</tr>";
+
+
+while($row = mysqli_fetch_array( $query ))
+{
+	
+	$qty = $row['rqty'];
+
+echo "<tr>";
+echo '<td>' . $row['bNo'] . '</td>';
+echo '<td>' . $row['bName'] . '</td>';
+echo '<td>' . $row['bAuthor'] . '</td>';
+echo '<td>' . $row['bCategory'] . '</td>';
+echo '<td>' . $row['bShelfNo'] . '</td>';
+echo '<td>' . $row['status'] . '</td>';
+echo '<td><a href="edit.php?id=' . $row['bNo'] . '">Edit</a></td>';
+echo '<td><a href="delete.php?id=' . $row['bNo'] . '">Delete</a></td>';
+echo '<td>' . $row['qty'] . '</td>';
+echo '<td>' . $row['rqty'] . '</td>';
+
+echo "</tr>";
+
+}
+
+echo "</table>";
+}
+?>
+	
+	</div>
+	
+	<script>
+	document.getElementById("Bookname").click();
+	</script>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset='UTF-8'>
+    <?php
+session_start();
+include("./src/php/captcha.php");
+$_SESSION['captcha'] = simple_php_captcha();
+
+?>
+
+  <style>
+
+  h1{
+    background: #3498DB;
+    color:white;
+  }
+  div{
+
+height:200px;
+width:400px;
+    position: fixed;
+  <!-- top: 50%;
+   left: 50%;-->
+   
+   margin-top: -100px;
+   margin-left: -200px;
+  }
+  #legend2{
+  
+  text-align: center;
+  align: center;
+  margin top: 200px;
+  
+  }
+  
+  </style>
+<title>Technical Informational Center</title>
+<link rel="stylesheet" type="text/css" href="bootstrap.css">
+</head>
+<!-- <body align="center" style="width:1920;height:1080;position:fixed;align:center;">  -->
+	<body align="center" >
+		
+  <span class="header" >
+    <img src="assets/bel_logo.png" style="width:256px" align="left">
+     <h5 id="abc"><h5 align="right"><font size="5" color="#3984DB">  टेक्निकल इन्फॉर्मेशन सेंटर   </font> <br/>
+     A Simple Library Management System <br/>
+         Made as a Project<br/>
+         SDSK Apps <br/>
+        
+<font color="#f00" size=4> BETA - बीटा</font>
+</p></h5>
+  </span>
+
+    <h1 style="padding:10;"><font color="#fff">टेक्निकल इन्फॉर्मेशन सेंटर</font> </h1>
+<div>
+    <form method="post" action="./src/php/validate_login.php" >
+      <fieldset id="legend2" style="border: 2px #3498DB solid; margin-top: 80px;">
+
+      <legend id="legend2" style="border: 2px #3498DB solid; padding: 0.2em 0.8em ">लॉगिन</legend>
+
+      <input type="text" name="user_name" id="user_name" placeholder="User Name" style="height:35px" require/> <br/>
+      <input type="password" name="user_pass" id="user_pass" placeholder="Password" style="height:35px" require/> <br/>
+	  Verify you are not a robot. <br/>
+    <input type="number" name="cap" placeholder="Enter the text in the image" require/>
+  <img src="./src/php/captcha.php" /><br>
+      <button type="submit" id="btnSubmit" class="btn btn-primary" >लॉगिन </button>
+	  <!--<input type="submit" id="btnSubmit" value = "Login" style="white" />-->
+
+      </fieldset>
+
+    </form>
+	
+	<p>टी.आई.सी. मे अखबार एवं किताबें पढ़ने / लेने / लौटाने का समय केवल प्रातः 10.00 से 12.30 तक है। </p><br/>
+	<p>जब तक इस देश का राजकाज अपनी भाषा मे नहीं चलेगा, ताबतक कह नहीं सकते की देश मे स्वराज है। - मोरारजी देसाई</p> 
+	<p><u>TIC portal best supported on Mozilla Firefox v55.0.3 and above.</u></p> 
+</div>
+
+<marquee><h2> टी.आई.सी पोर्टल में  आपका स्वागत हैं।   </h2></marquee>
+
+</body>
+</html>
